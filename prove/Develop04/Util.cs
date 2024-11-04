@@ -10,7 +10,7 @@ class Util
         }
         char[] spinnerChars = new char[] { '-', '\\', '|', '/' };
         Console.Write(spinnerChars[count % spinnerChars.Length]);
-        if (count == total - 1) Console.Write("\b ");
+        if (count == total) Console.Write("\b ");
     }
 
     public void PrintCountdown(int count, int total)
@@ -25,7 +25,7 @@ class Util
         };
         if (count > 0) BackUp(content);
         Console.Write(content);
-        if (count == total - 1)
+        if (count == total)
         {
             BackUp(content);
             Console.Write(" ");

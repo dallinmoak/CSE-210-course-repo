@@ -10,8 +10,9 @@ class Program
         {
             BreathingActivity BreathAct1 = new();
             BreathAct1.Init();
-            Console.Clear();
-            Console.WriteLine("continue [Y/n]?");
+            // Util.Instance.DoWithDelay(() => Console.Clear(), 1, null, false);
+
+            Console.WriteLine("again? [Y/n]?");
             string choice = Console.ReadLine();
             if (choice == "n")
             {

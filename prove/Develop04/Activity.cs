@@ -27,40 +27,5 @@ abstract class Activity
         this._duration = int.Parse(Console.ReadLine());
     }
 
-    public void DoWithDelay(Action f, int secs, Action<int> waitAction)
-    {
-        int interval = 3;
-        for (int i = 0; i < interval * secs; i++)
-        {
-            waitAction(i);
-            Thread.Sleep((int)Math.Round(1000.0 / interval));
-        }
-        Console.WriteLine();
-        f();
-    }
-
-    public void PrintSpinner(int count)
-    {
-        Console.Write("\b");
-        string newStr = "";
-        if (count % 4 == 0)
-        {
-            newStr = "-";
-        }
-        else if ((count - 1) % 4 == 0)
-        {
-            newStr = "\\";
-        }
-        else if ((count - 2) % 4 == 0)
-        {
-            newStr = "|";
-        }
-        else if ((count - 3) % 4 == 0)
-        {
-            newStr = "/";
-        }
-        Console.Write(newStr);
-    }
-
     public abstract void PerformActivity();
 }

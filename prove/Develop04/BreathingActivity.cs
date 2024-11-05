@@ -25,9 +25,13 @@ class BreathingActivity : Activity
                 continueBreathing = false;
                 return;
             }
-            util.DoWithDelay(() => Console.Write("Breathing in..."), breathInTime, util.PrintCountdown, 1);
+            static void Breathe(string dir)
+            {
+                Console.Write($"Breathing {dir}...");
+            }
+            util.DoWithDelay(() => Breathe("in"), breathInTime, util.PrintCountdown, 1);
             Console.Write("\n\n");
-            util.DoWithDelay(() => Console.Write("Breathing out..."), breathOutTime);
+            util.DoWithDelay(() => Breathe("out"), breathOutTime);
             Console.Write("\n\n");
         }
     }

@@ -1,13 +1,31 @@
 using System;
+using System.ComponentModel.Design;
 
 class Program
 {
-    void GenerateMenu()
+    static int GetMenuChoice()
     {
-        Console.WriteLine("Welcome to the Breathing Activity Program!");
-        Console.WriteLine("Please select an option:");
-        Console.WriteLine("1. Start Breathing Activity");
-        Console.WriteLine("2. Exit");
+        bool done = false;
+        int option = 0;
+        while (!done)
+        {
+            Console.WriteLine("Menu Options:");
+            Console.WriteLine("  1. Start breathing activity");
+            // Console.WriteLine("  2. Start reflecting activity");
+            // Console.WriteLine("  3. Start listing activity");
+            Console.WriteLine("  4. Quit");
+            Console.Write("Select a choice from the menu: ");
+            string choice = Console.ReadLine();
+            if (int.TryParse(choice, out option) && option >= 1 && option <= 4)
+            {
+                done = true;
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice. Please try again.");
+            }
+        }
+        return option;
     }
     static void Main(string[] args)
     {
@@ -15,18 +33,19 @@ class Program
         bool done = false;
         while (!done)
         {
-            BreathingActivity BreathAct1 = new();
-            BreathAct1.Init();
-
-            Console.WriteLine("again? [Y/n]?");
-            string choice = Console.ReadLine();
-            if (choice == "n")
+            int choice = GetMenuChoice();
+            switch (choice)
             {
-                done = true;
-            }
-            else
-            {
-                done = false;
+                case 1:
+                    Activity breathingActivity = new BreathingActivity();
+                    breathingActivity.Init();
+                    break;
+                case 4:
+                    done = true;
+                    break;
+                default:
+                    Console.WriteLine("choice not covered");
+                    break;
             }
             Console.Clear();
         }

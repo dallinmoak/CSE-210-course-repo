@@ -42,7 +42,6 @@ class Util
             Thread.Sleep((int)Math.Round(1000.0 / interval));
         }
         if (!before) f();
-
     }
 
     private static Util _instance;

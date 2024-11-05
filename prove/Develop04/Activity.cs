@@ -14,12 +14,15 @@ abstract class Activity
     {
         get { return this._duration; }
     }
+
     public void Init()
     {
         Console.WriteLine(this._initMessage);
         this.GetDuration();
         this.PerformActivity();
     }
+
+    protected static Util util = Util.Instance;
 
     private void GetDuration()
     {

@@ -4,43 +4,35 @@ class BreathingActivity : Activity
 	public BreathingActivity()
 	{
 		this.InitMessage = "This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.";
+		this.Interval_length = 6;
+		this._breathInTime = this.Interval_length / 2;
+		this._breathOutTime = this.Interval_length / 2;
 	}
-
-	public override void PerformActivity()
+	private int _breathInTime;
+	private int _breathOutTime;
+	static void Breathe(string dir)
 	{
-		DateTime startTime = DateTime.Now;
-		DateTime endTime = startTime.AddSeconds(this.Duration);
-		bool continueBreathing = true;
-		int breathInTime = 3;
-		int breathOutTime = 3;
-		while (continueBreathing)
-		{
-			DateTime currentTime = DateTime.Now;
-			double remainingSecs = (endTime - currentTime).TotalSeconds;
-			Console.Write($"Time remaining: {remainingSecs} seconds\n\n");
-			if (remainingSecs < breathInTime + breathOutTime - 1)
-			{
-				Console.WriteLine("Not enough time for another round of breathing. Ending session.");
-				Console.WriteLine($"Breathing session ended after {(currentTime - startTime).TotalSeconds} seconds.");
-				continueBreathing = false;
-				return;
-			}
-			static void Breathe(string dir)
-			{
-				Console.Write($"Breathing {dir}...");
-			}
-			util.DoWithDelay(
-				() => Breathe("in"),
-				breathInTime,
-				util.PrintCountdown,
-				1
-			);
-			Console.Write("\n\n");
-			util.DoWithDelay(
-				() => Breathe("out"),
-				breathOutTime
-			);
-			Console.Write("\n\n");
-		}
+		Console.Write($"Breathing {dir}...");
+	}
+	protected override void PreLoopAction()
+	{
+	}
+	public override void PostLoopAction()
+	{
+	}
+	public override void IntervalAction()
+	{
+		util.DoWithDelay(
+			() => Breathe("in"),
+			_breathInTime,
+			util.PrintCountdown,
+			1
+		);
+		Console.Write("\n\n");
+		util.DoWithDelay(
+			() => Breathe("out"),
+			_breathOutTime
+		);
+		Console.Write("\n\n");
 	}
 }

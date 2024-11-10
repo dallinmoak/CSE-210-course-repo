@@ -12,7 +12,7 @@ class Program
 			Console.WriteLine("Menu Options:");
 			Console.WriteLine("  1. Start breathing activity");
 			Console.WriteLine("  2. Start reflecting activity");
-			// Console.WriteLine("  3. Start listing activity");
+			Console.WriteLine("  3. Start listing activity");
 			Console.WriteLine("  4. Quit");
 			Console.Write("Select a choice from the menu: ");
 			string choice = Console.ReadLine();
@@ -37,12 +37,13 @@ class Program
 			switch (choice)
 			{
 				case 1:
-					Activity breathingActivity = new BreathingActivity();
-					breathingActivity.Init();
+					new BreathingActivity().Init();
 					break;
 				case 2:
-					Activity reflectionActivity = new ReflectionActivity();
-					reflectionActivity.Init();
+					new ReflectionActivity().Init();
+					break;
+				case 3:
+					new ListingActivity().Init();
 					break;
 				case 4:
 					done = true;

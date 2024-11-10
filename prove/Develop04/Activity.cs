@@ -14,6 +14,19 @@ abstract class Activity
 	{
 		get { return this._duration; }
 	}
+	private int _interval_length;
+
+	protected int Interval_length
+	{
+		get { return this._interval_length; }
+		set { this._interval_length = value; }
+	}
+	protected string GetRandomLine(string path)
+	{
+		List<string> lines = new List<string>(File.ReadAllLines(path));
+		int index = new Random().Next(lines.Count);
+		return lines[index];
+	}
 	protected static Util util = Util.Instance;
 	public void Init()
 	{
@@ -30,5 +43,31 @@ abstract class Activity
 		this._duration = int.Parse(Console.ReadLine());
 	}
 
-	public abstract void PerformActivity();
+	protected abstract void PreLoopAction();
+	public abstract void PostLoopAction();
+	public abstract void IntervalAction();
+
+	protected void PerformActivity()
+	{
+		DateTime startTime = DateTime.Now;
+		DateTime endTime = startTime.AddSeconds(this.Duration);
+		bool continueActivity = true;
+		this.PreLoopAction();
+		Console.Write(this._interval_length);
+		while (continueActivity)
+		{
+			DateTime currentTime = DateTime.Now;
+			double remainingSecs = (endTime - currentTime).TotalSeconds;
+			Console.Write($"\t(Time remaining: {remainingSecs} seconds)\n\n");
+			if (remainingSecs < this._interval_length - 1)
+			{
+				Console.WriteLine("Not enough time for another round. Ending session.");
+				Console.WriteLine($"Activity session ended after {(currentTime - startTime).TotalSeconds} seconds.");
+				continueActivity = false;
+				this.PostLoopAction();
+				return;
+			}
+			this.IntervalAction();
+		}
+	}
 }

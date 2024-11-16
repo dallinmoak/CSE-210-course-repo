@@ -1,0 +1,7 @@
+class Goal
+{
+  public Goal()
+  {
+    
+  }
+}
